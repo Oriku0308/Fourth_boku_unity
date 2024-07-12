@@ -8,26 +8,44 @@ public abstract class Shell : MonoBehaviour
     [SerializeField] float m_lifeTime = 7f;
 
     [SerializeField] AudioClip _sound = default;
-    Rigidbody rb;
+    Rigidbody2D rb;
     Transform GT;
 
-    public void Start()
+    public virtual void First()//ïKê{
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        Transform GT = GameObject.Find("Gun").GetComponent<Transform>();
-        AudioSource.PlayClipAtPoint(_sound, Camera.main.transform.position);
+        rb = GetComponent<Rigidbody2D>();
+        GT = GameObject.Find("Gun").GetComponent<Transform>();
+        //AudioSource.PlayClipAtPoint(_sound, Camera.main.transform.position);
+        
+    }
+
+    public virtual void DestroyTime()//ïKê{
+    {
         Destroy(this.gameObject, m_lifeTime);
     }
 
-    public virtual void Fire()//î≠éÀë¨ìxÇïœÇ¶ÇÁÇÍÇÈ
+    public virtual void Speed()//ïKê{
     {
         rb.velocity = Vector2.right * m_speed * GT.localScale.x;
     }
 
-    public virtual void Hit()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(this);
+        Hit();
     }
 
-    public abstract void Penetrete();
+    public virtual void Hit()
+    {
+        Destroy(this.gameObject);
+    }
+
+    public virtual void Penetrete()
+    {
+
+    }
+
+    public virtual void Diffuse()
+    {
+
+    }
 }

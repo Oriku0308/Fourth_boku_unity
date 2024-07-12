@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class diffuse : MonoBehaviour
+public class diffuse : Shell
 {
-    // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        First();
+        DestroyTime();
+        Speed();
     }
 }
