@@ -5,16 +5,17 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
-    [SerializeField] GameObject m_bulletPrefab = default;
+    //[SerializeField] 
+    GameObject m_bulletPrefab = default;
     [SerializeField] Transform m_muzzle = default;
-    [SerializeField] GameObject[] _Shells;
+    [SerializeField] GameObject[] _shells;
 
-    int m_nowShell;
+    int Shellnum = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -23,13 +24,19 @@ public class GunController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             //Instantiate(m_bulletPrefab );
-            GameObject newObject = Instantiate(m_bulletPrefab);
+            //GameObject newObject = Instantiate(m_bulletPrefab);
+            GameObject newObject = Instantiate(_shells[Shellnum]);
             newObject.transform.position = m_muzzle.position;
         }
 
         if (Input.GetButtonDown("Fire2"))
         {
-
+            Shellnum++;
+            if (Shellnum == 3)
+            {
+                Shellnum = 0;
+            }
+            m_bulletPrefab = _shells[Shellnum];
         }
     }
 }

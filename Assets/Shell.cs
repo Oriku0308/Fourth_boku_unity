@@ -7,7 +7,7 @@ public abstract class Shell : MonoBehaviour
     [SerializeField] float m_speed = 3f;
     [SerializeField] float m_lifeTime = 7f;
 
-    [SerializeField] AudioClip _sound = default;
+    //[SerializeField] AudioClip _sound = default;
     Rigidbody2D rb;
     Transform GT;
 
@@ -29,11 +29,15 @@ public abstract class Shell : MonoBehaviour
         rb.velocity = Vector2.right * m_speed * GT.localScale.x;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Hit();
+        if (collision.tag == "Enemy")
+        {
+            Hit();
+            Destroy(collision.gameObject);
+        }
     }
-
+    
     public virtual void Hit()
     {
         Destroy(this.gameObject);
