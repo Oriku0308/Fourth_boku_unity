@@ -1,22 +1,25 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 
 public abstract class Shell : MonoBehaviour
 {
-    [SerializeField] float m_speed = 3f;
+    [SerializeField] public float m_speed = 3f;
     [SerializeField] float m_lifeTime = 7f;
 
     //[SerializeField] AudioClip _sound = default;
-    Rigidbody2D rb;
-    Transform GT;
+    public Rigidbody2D rb;
+    public Transform gt;
+    //íÖíeèàóùóp
+    private int _hitCount = 0;
+    [SerializeField] int _maxHit = 1;
 
     public virtual void First()//ïKê{
     {
         rb = GetComponent<Rigidbody2D>();
-        GT = GameObject.Find("Gun").GetComponent<Transform>();
+        gt = GameObject.Find("Gun").GetComponent<Transform>();
         //AudioSource.PlayClipAtPoint(_sound, Camera.main.transform.position);
-        
     }
 
     public virtual void DestroyTime()//ïKê{
@@ -26,7 +29,7 @@ public abstract class Shell : MonoBehaviour
 
     public virtual void Speed()//ïKê{
     {
-        rb.velocity = Vector2.right * m_speed * GT.localScale.x;
+        rb.velocity = Vector2.right * m_speed * gt.localScale.x;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -37,19 +40,13 @@ public abstract class Shell : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
-    
-    public virtual void Hit()
+
+    public void Hit()
     {
-        Destroy(this.gameObject);
-    }
-
-    public virtual void Penetrete()
-    {
-
-    }
-
-    public virtual void Diffuse()
-    {
-
+        _hitCount++;
+        if (_hitCount == _maxHit)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
