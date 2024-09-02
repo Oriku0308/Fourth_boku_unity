@@ -4,23 +4,21 @@ using UnityEngine;
 
 public class diffuse : Shell
 {
-    float a = 0.01f;
+    float a = 1f;
     public void Start()
     {
         First();
         DestroyTime();
         //Speed();
     }
-    private void FixedUpdate()
+    private void Update()
     {
-        m_speed += 0.01f;
-
         Speed();
     }
 
     public override void Speed()
     {
-        float sin = Mathf.Sin(Time.timeSinceLevelLoad) + m_speed;
-        this.rb.velocity = new Vector2(a *= m_speed, sin );
+        float sin = Mathf.Sin(Time.time);
+        this.transform.localPosition =  new Vector3(0, sin, 0);
     }
 }

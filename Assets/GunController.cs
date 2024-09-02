@@ -2,24 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GunController : MonoBehaviour
 {
-    //[SerializeField] 
     GameObject m_bulletPrefab = default;
     [SerializeField] Transform m_muzzle = default;
     [SerializeField] GameObject[] _shells;
 
     int Shellnum = 0;
+    int _length;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-
+        _length = _shells.Length;
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
@@ -32,7 +33,7 @@ public class GunController : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             Shellnum++;
-            if (Shellnum == 3)
+            if (Shellnum == _length)
             {
                 Shellnum = 0;
             }
